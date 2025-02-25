@@ -1,0 +1,41 @@
+{
+  "os":  "Linux-4.15.0-197-generic-x86_64-with-glibc2.27",
+  "python":  "CPython 3.10.16",
+  "startedAt":  "2025-02-25T16:37:34.123203Z",
+  "program":  "/mnt/storageG1/lwang/Projects/TB-AMP-design/lstm.ipynb",
+  "codePath":  "lstm.ipynb",
+  "git":  {
+    "remote":  "https://github.com/linfeng-wang/TB-AMP-design.git",
+    "commit":  "523031e0643ee18abfa5c01fcf643a2db2261fe4"
+  },
+  "email":  "wanglinfeng1115@gmail.com",
+  "root":  "/mnt/storageG1/lwang/Projects/TB-AMP-design",
+  "host":  "plum-g1",
+  "executable":  "/mnt/storageG1/lwang/miniconda3/envs/new-ml/bin/python",
+  "codePathLocal":  "lstm.ipynb",
+  "cpu_count":  48,
+  "cpu_count_logical":  96,
+  "gpu":  "Tesla V100-PCIE-32GB",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "116717178880",
+      "used":  "86814879744"
+    }
+  },
+  "memory":  {
+    "total":  "1077713481728"
+  },
+  "cpu":  {
+    "count":  48,
+    "countLogical":  96
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "Tesla V100-PCIE-32GB",
+      "memoryTotal":  "34089730048",
+      "architecture":  "Volta"
+    }
+  ],
+  "cudaVersion":  "11.1"
+}

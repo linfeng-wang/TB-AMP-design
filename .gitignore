@@ -148,7 +148,7 @@ dmypy.json
 docker_ohe/
 
 Julian/test
-*.csv
+# *.csv
 /mnt/storageG1/lwang/TB-AMR-CNN/ml_workshop/data
 /mnt/storageG1/lwang/TB-AMR-CNN/Julian/test/merged-file
 
@@ -163,8 +163,8 @@ Julian/test
 *.fa.pac
 *.pack
 *.pt
-*.pth
-*.npy
+# *.pth
+# *.npy
 individual_models/snps_cryptic50kpos_emb.txt
 *.txt
 # *.yaml
