@@ -169,4 +169,6 @@ individual_models/snps_cryptic50kpos_emb.txt
 *.txt
 # *.yaml
 # find . -type f -size +99M
-# find . -type f -size +99M | awk -F. '{if (NF>1) print $NF}' | sort | uniq
+# find . -type f -size +99M | awk -F. '{if (NF>1) print $NF}' | sort | uniq8
+*.pack
+AMPTrans-lstm/
