@@ -162,7 +162,7 @@ Julian/test
 *.fa.bwt.2bit.64
 *.fa.pac
 *.pack
-*.pt
+# *.pt
 # *.pth
 # *.npy
 individual_models/snps_cryptic50kpos_emb.txt
