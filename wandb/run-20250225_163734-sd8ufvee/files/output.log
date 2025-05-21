@@ -1,3 +1,0 @@
-Create sweep with ID: ztsyv9n5
-Sweep URL: https://wandb.ai/linfeng-wang/your_project_name/sweeps/ztsyv9n5
-[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.login() after wandb.init() has no effect.
