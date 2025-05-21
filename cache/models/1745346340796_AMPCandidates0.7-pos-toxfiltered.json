@@ -1,0 +1,316 @@
+[
+    {
+      "name": "TB-AMP-Generator-Submission",
+      "modelSeeds": [],
+      "sequences": [
+        {
+          "proteinChain": {
+            "sequence": "IAAAAPAAAGHGPHHHGKGYKGDKKKKGHGPHHGHHKHP",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "VAAAAAAHHAGSGGHYGKKGKHHHHGPHGGHKGHGHGKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "DAAAIKAHPHHGGRRHHHKPPKHGGPHDGHDGHKHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "WAAAAHGHAHGGYHRHKHHH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "AAAAAAKPRYHHMKKKPHHGHGHHHHGGKHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "HAAAAAHHGYKHHHGHKFGG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "TAAAAANHAAKAHYHHHHHY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "VAAAAAQAGYYHKHHHKKKK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "QAMAAAKHHTGHAHGGGHKHYHHPGY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "RAAAAKAAYRHKHGHHHGYY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "WAAAAARPYKKHYPGGHKYG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "AAAAAAAHHMHPHHPHGGKHKGGGHHHHRHHKHHPYG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "GAAATAAHGAGGGGHGHRHKGGGGHGGGHGHHKGK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "EAAAAFGGHHYPYGKYGGKHPGKGGGKIHHPHKHHHHKHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "DAAAAATHGGPKHRKGHGKGHKPHKGPGHKGGKK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "PAAAAAQHHHYGHHHGPYHK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "EAAAAAHYYHGYPGYPHHHGHKDHHHRHHKHGHGG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "YAAGAAGGAGKK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "PAAAAKPHHKGYHHHGGKGH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "VAAAAAAKAA",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "LAAAAHKKGHHGYGYHGHPKKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "YAAAAYVAKYGHWGKHYYYH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "NAAAAAAAAKHKGHHKHHPHGGPGPHYKYH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "WAAADYHGHKGGHHHGGGYHHKGY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "HAAALAGAYGYKHHGGGGKHGYPYY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "CAAAPIKHHAHHGKHGGKGPHHHKHKHGPKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "IAAAAAGKARRDPGHKGKPHDHHYHGHHK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "LAAKAARAYKG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "DAAAAAAPYYKGKG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "PAAAWAPAGAKHPHYGPK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "KAAAAARHPHGGKHGHGHGKHHEG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "GAAAAAHAYAHKPKKHKGPH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "NAAAAAAAARGYHGKKHHKGYYHGKG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "KAAAAAAKTGGYGPHGPHHH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "DAAKAAAKAYHGGGHHPHGH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "GAAAAYYAYKQHHHKGGHKGKYGKHPGKPYKHHPHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "VAAAAAGAKYCYHPKHKPHHKKKKHKGHDHHHKHH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "RAAAAKAWAYHGHGHHKHHHKHHGGKGHKGHGYHKHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "KAAAAAAAKHHGHHHYGKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "IAAAFAAAGK",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "MAAAAADYAKGHGHKHKKYGHGYYHPHHGKGKKKGHGHGY",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "CAAAAARGYPGYGPHPPKKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "CAAAAAAAGAAGYHYHHHHGHGHHGGKHGYGKYGG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "PAAAAAAGPKKAHHEGKGHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "KAGAPAAHHP",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "HAAAAAKARHKKRKHGHGKHKGGKGGGYKHHHKHGGG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "WAAAAVAKHHGGHKKHGYKH",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "MAAAAAACYGHHHHYGGGPHHKPPRGKHPKKHGHYYGGG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "PAAAYAAKRHHHKA",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "FAAAAAAGAGHKYYKHHKGHPHHHG",
+            "count": 1
+          }
+        },
+        {
+          "proteinChain": {
+            "sequence": "FAAAAAHKAIGKKYGGHGGR",
+            "count": 1
+          }
+        }
+      ],
+      "dialect": "alphafoldserver",
+      "version": 1
+    }
+  ]
