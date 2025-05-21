@@ -33,7 +33,7 @@ cd TB-AMP-design
 # Create a new conda environment using the provided YAML file
 conda env create -f env.yml
 # Activate the environment
-conda activate new-ml  # or whatever name is defined
+conda activate new-ml  # activate the environment you created
 ```
 
 ### 3. Run the AMP generator/classifier
