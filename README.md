@@ -8,15 +8,35 @@ This repository contains the code and data pipelines used in our study on deep l
 **Reference: [Paper Title] (DOI link)
 **
 
-# 1. Clone the repo
+## How to install
+
+### Prerequisites
+- Python 3.7+
+- Conda (or Miniconda)
+- Git
+- Jupyter Notebook (optional, for running notebooks)
+- PyTorch (version compatible with your CUDA version, if applicable)
+- Other dependencies will be installed via the provided `env.yml` file.
+
+
+### 1. Clone the repo
+```bash
+# Clone the repository
 git clone https://github.com/your-username/TB-AMP-design.git
+# Navigate to the project directory
 cd TB-AMP-design
+```
 
-# 2. Create the Conda environment
-conda env create -f env_droplet.yml
+### 2. Create the Conda environment
+
+```bash
+# Create a new conda environment using the provided YAML file
+conda env create -f env.yml
+# Activate the environment
 conda activate new-ml  # or whatever name is defined
+```
 
-# 3. Run the AMP generator/classifier
+### 3. Run the AMP generator/classifier
 
 
 ## 📁 File System Structure
