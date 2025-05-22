@@ -34,7 +34,10 @@ cd TB-AMP-design
 conda env create -f env.yml
 # Activate the environment
 conda activate tb_amp_env  # activate the environment you created
+
+# The individual installation commands can also be found in installation_commands.txt.
 ```
+
 
 ### 3. Run the AMP generator/classifier
 
