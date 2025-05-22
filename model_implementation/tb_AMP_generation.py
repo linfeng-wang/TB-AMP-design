@@ -53,7 +53,8 @@ def generate_sequence_from_seed(model, seed, max_length=30, temperature=1.0, dev
 
 # --- Generation Function ---
 def generate_fixed_length_peptides(model_path, output_fasta, num_seqs, temperature, fixed_length):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     model = GenerativeLSTM()
     model.load_state_dict(torch.load(model_path, map_location=device))
     model.to(device)

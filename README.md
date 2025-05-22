@@ -11,7 +11,7 @@ This repository contains the code and data pipelines used in our study on deep l
 ## How to install
 
 ### Prerequisites
-- Python 3.7+
+- Python 3.10+
 - Conda (or Miniconda)
 - Git
 - Jupyter Notebook (optional, for running notebooks)
@@ -22,7 +22,7 @@ This repository contains the code and data pipelines used in our study on deep l
 ### 1. Clone the repo
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/TB-AMP-design.git
+git clone https://github.com/linfeng-wang/TB-AMP-design.git
 # Navigate to the project directory
 cd TB-AMP-design
 ```
@@ -33,7 +33,7 @@ cd TB-AMP-design
 # Create a new conda environment using the provided YAML file
 conda env create -f env.yml
 # Activate the environment
-conda activate new-ml  # activate the environment you created
+conda activate tb_amp_env  # activate the environment you created
 ```
 
 ### 3. Run the AMP generator/classifier

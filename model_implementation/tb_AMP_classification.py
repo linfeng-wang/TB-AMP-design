@@ -50,7 +50,8 @@ def prepare_sequences(sequences):
 
 # --- Prediction Script ---
 def predict_from_fasta(fasta_path, model_path, output_path):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     
     # Load model
     model = LSTMClassifier()
