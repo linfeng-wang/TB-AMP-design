@@ -50,6 +50,7 @@ def prepare_sequences(sequences):
 
 # --- Prediction Script ---
 def predict_from_fasta(fasta_path, model_path, output_path):
+    print(f'\033[94m> Predicting from FASTA:{fasta_path}\033[0m')
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     device = torch.device("cpu")
     
@@ -71,13 +72,14 @@ def predict_from_fasta(fasta_path, model_path, output_path):
     with torch.no_grad():
         outputs = model(packed_input).cpu().numpy()
         pred_labels = [1 if p > 0.5 else 0 for p in outputs]
+        pred_confidence = [p if p > 0.5 else 1 - p for p in outputs]
 
     # Write output
     with open(output_path, "w") as f:
         f.write("ID\tPrediction\n")
-        for seq_id, pred in zip(ids, pred_labels):
-            f.write(f"{seq_id}\t{pred:.4f}\n")
-    print(f"> Predictions saved to {output_path}")
+        for seq_id, pred, conf in zip(ids, pred_labels, pred_confidence):
+            f.write(f"{seq_id}\t{pred:.4f}\t{conf:.4f}\n")
+    print(f"\033[94m> Predictions saved to {output_path}\033[0m")
     return output_path
 
 # --- Main Script with argparse ---
@@ -91,7 +93,7 @@ if __name__ == "__main__":
     predict_from_fasta(args.fasta, './best_model_lstm_frozen.pt', args.output)
 
 
-## run bash code exaample
+# run bash code exaample
 # python tb_AMP_classification.py \
 #   --fasta test_tbamp.fasta \
 #   --output test_tbamp_pred.txt

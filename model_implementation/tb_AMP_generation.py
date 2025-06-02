@@ -81,7 +81,7 @@ if __name__ == "__main__":
     model_path = "./best_model_lstm_generator-notrans-tb.pt"
     model_path = "./best_model_lstm_generator.pt"
     generate_fixed_length_peptides(model_path, args.output, args.num_seqs, args.temperature, args.length)
-    print(f"> Generated {args.num_seqs} peptides of length {args.length} and saved to {args.output} with temperature = {args.temperature}.")
+    print(f"\033[94m> Generated {args.num_seqs} peptides of length {args.length} and saved to {args.output} with temperature = {args.temperature}\033[0m")
 
 # python tb_AMP_generation.py \
 #   --output peptides_25mers.fasta \
