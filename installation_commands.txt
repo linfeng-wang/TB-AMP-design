@@ -1,0 +1,13 @@
+conda create -n tb_amp_env python=3.10.16
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+conda install anaconda::pandas
+conda install conda-forge::matplotlib
+conda install conda-forge::scikit-learn
+pip install argparse
+conda install conda-forge::tensorboard
+conda install conda-forge::optuna
+conda install conda-forge::biopython
+
+
+
+
