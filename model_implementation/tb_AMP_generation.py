@@ -88,3 +88,34 @@ if __name__ == "__main__":
 #   --num_seqs 20 \
 #   --temperature 1 \
 #   --length 25
+
+
+# python tb_AMP_generation.py \
+#   --output peptides_25mers_temp06.fasta \
+#   --num_seqs 100 \
+#   --temperature 0.6 \
+#   --length 25
+
+# python tb_AMP_generation.py \
+#   --output peptides_25mers_temp08.fasta \
+#   --num_seqs 100 \
+#   --temperature 0.8 \
+#   --length 25
+
+# python tb_AMP_generation.py \
+#   --output peptides_25mers_temp1.fasta \
+#   --num_seqs 100 \
+#   --temperature 1 \
+#   --length 25
+  
+# python tb_AMP_generation.py \
+#   --output peptides_25mers_temp12.fasta \
+#   --num_seqs 100 \
+#   --temperature 1.2 \
+#   --length 25
+  
+#   python tb_AMP_generation.py \
+#   --output peptides_25mers_temp14.fasta \
+#   --num_seqs 100 \
+#   --temperature 1.4 \
+#   --length 25
