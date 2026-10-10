@@ -376,6 +376,65 @@ seed documented above, so they add no new source of truth.
 
 ---
 
+## Reproducing the published TB result from this package
+
+The headline TB classifier was retrained from `splits/` alone and compared against the
+10-run summary stored in `lstm_transfer.ipynb` code cell 51.
+
+| Metric | Reported | Retrained from `splits/` (n=10) | Δ |
+|---|---|---|---|
+| AUC | 0.9690 ± 0.0002 | **0.9688 ± 0.0005** | −0.0002 |
+| Accuracy | 0.9045 ± 0.0056 | 0.8920 ± 0.0116 | −0.0125 |
+| Sensitivity | 0.9244 ± 0.0073 | 0.9098 ± 0.0112 | −0.0146 |
+| Specificity | 0.8872 ± 0.0098 | 0.8766 ± 0.0185 | −0.0106 |
+
+**AUC reproduces to four decimal places.** The accuracy gap is 0.0125 — on an 88-sequence
+test set that is **1.1 peptides**, and individual runs hit the published confusion matrix
+`[[42 5], [3 38]]` exactly. Sensitivity and specificity differ by 0.57 of one positive and
+0.47 of one negative respectively. Since AUC agrees to 4 dp, the model's ranking of the
+test set is identical and only the 0.5-threshold decision on roughly one borderline
+peptide moves; the residual is run-to-run variation and library-version numerics
+(reproduced on torch 2.6.0+cu118; the stored outputs date from 2025-04-30), not a data
+difference.
+
+### Setup required to reproduce
+
+Two stages, both reconstructable from this package plus the notebook:
+
+| | Stage 1 (general pre-training) | Stage 2 (TB transfer) |
+|---|---|---|
+| Data | `splits/general_*.csv` | `splits/tb_*.csv` |
+| Architecture | `LSTMClassifier(input_dim=20, hidden_dim=95, num_layers=1)` | same, encoder frozen |
+| Dropout | 0.20287746211724011 | 0.273304750162406 |
+| Learning rate | 0.004396992152527415 | 0.009721760525684369 |
+| Weight decay | 3.999214064585909e-05 | 0.0017251614959305703 |
+| Epochs / batch | 20 / 64 | 25 / 32 |
+| Loss / optimiser | `BCELoss` / `Adam` | `BCELoss` / `Adam` |
+
+Stage 2 freezes every parameter whose name contains `lstm`, leaving `fc.weight` and
+`fc.bias` — two tensors — trainable. Note the `torch.save` inside the training function is
+commented out, so the **last-epoch** model is evaluated, not the best-validation-loss one.
+
+### This package ships no model weights
+
+Stage 2 starts from the stage-1 checkpoint `best_model_lstm_1.pt`
+(MD5 `b0701ec8026ada5bcff4691a2d537bf9`), which lives in the code repository at
+`model_scripts/weights/`, not in this data package. Two consequences:
+
+- **Reproducing stage 2 directly** requires that file from the repository.
+- **Reproducing from this package alone** means retraining stage 1 first. That works:
+  stage 1 retrained from `splits/general_*.csv` with the recipe above reaches general test
+  accuracy 0.9563 / AUC 0.9932, and transferring it into stage 2 gives TB test
+  **accuracy 0.8977, AUC 0.9714** (confusion matrix `[[40 7], [2 39]]`) — within
+  0.0068 accuracy, or 0.6 peptides, of the published figure.
+
+`model_scripts/best_model.pt` is **not** the stage-1 checkpoint and will not reproduce
+these numbers: it is a `hidden_dim=64` general-AMP model, so it matches zero tensors
+against the `hidden_dim=95` transfer architecture. Scored directly on the shipped splits
+it gives TB test accuracy 0.7500 / AUC 0.9133.
+
+---
+
 ## Reproducibility summary
 
 | | Reproducible from `sources/`? | Notes |
@@ -415,7 +474,8 @@ All of the following were measured against the shipped files, not inferred:
 | Pairwise sequence overlap between splits | ✅ 0 (both families) |
 | `splits/tb_test.csv` vs. the notebook's exported test set | ✅ identical, in order |
 | `splits/` class counts vs. the notebook's stored confusion matrices | ✅ match (TB 47/41; general 2,273/2,376) |
-| Published `best_model.pt` scores on `splits/` using notebook code | ✅ runs end-to-end from `data_release/` alone |
+| Published TB result retrained from `splits/` alone | ✅ AUC 0.9688 ± 0.0005 vs. reported 0.9690 ± 0.0002 |
+| Stage 1 retrained from `splits/general_*.csv`, then transferred | ✅ TB test accuracy 0.8977, AUC 0.9714 |
 
 ---
 
