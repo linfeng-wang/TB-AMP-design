@@ -1,0 +1,18 @@
+# Tracked in git:  README.md, training/tb_amp_dataset.csv, training/general_amp_dataset.csv
+# Not tracked:     sources/, release archives
+#
+# Reproducing the models requires training/ alone, so the two training files are
+# versioned here. The upstream exports in sources/ are not: they are third-party
+# database content (APD3/ADAM, DBAASP, UniProtKB) whose bulk-redistribution terms
+# are summarised in the README's licensing section. Obtain them from the documented
+# queries, or from the release archive.
+
+# Third-party source exports
+sources/
+
+# Release archives (rebuildable: zip -r data_release.zip data_release)
+*.zip
+
+# OS / editor cruft
+.DS_Store
+.ipynb_checkpoints/
