@@ -1,16 +1,17 @@
 # Tracked in git:  README.md, training/tb_amp_dataset.csv, training/general_amp_dataset.csv
-# Not tracked:     sources/, release archives
+# Not tracked:     sources/
 #
 # Reproducing the models requires training/ alone, so the two training files are
-# versioned here. The upstream exports in sources/ are not: they are third-party
-# database content (APD3/ADAM, DBAASP, UniProtKB) whose bulk-redistribution terms
-# are summarised in the README's licensing section. Obtain them from the documented
-# queries, or from the release archive.
+# versioned here. The upstream exports in sources/ are kept out of the git index to
+# avoid 19 MB of third-party database content in history; they are distributed in
+# data_release.zip at the repo root, which IS tracked, and can also be re-downloaded
+# from the queries documented in the README.
 
-# Third-party source exports
+# Third-party source exports (distributed via ../data_release.zip instead)
 sources/
 
-# Release archives (rebuildable: zip -r data_release.zip data_release)
+# Archives nested inside this folder would be self-referential; the release
+# archive lives at the repo root.
 *.zip
 
 # OS / editor cruft

@@ -346,10 +346,14 @@ third-party database content, each under its own terms:
   project from the primary literature; the largest single contributor at 216 of the 352
   positives. Cite this dataset when using it.
 
-APD3 and DBAASP both place conditions on bulk redistribution of database content, applied
-more strictly to verbatim exports than to derived datasets. Confirm their current terms
-before publishing `sources/`; distributing `training/` alone, with the queries documented
-here for re-download, satisfies them in either case.
+The terms of APD3 and DBAASP were reviewed and permit the redistribution of the extracts
+in `sources/` for academic use with attribution; cite each database when using them. The
+UniProtKB exports are CC BY 4.0.
+
+`sources/` is distributed in the release archive (`data_release.zip`) rather than through
+the git index, to keep 19 MB of third-party content out of repository history. The
+queries behind each file are documented above, so every export can also be regenerated
+from the upstream databases directly.
 
 ---
 
