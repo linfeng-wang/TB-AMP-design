@@ -24,6 +24,9 @@ data_release/
 ├── training/                         # the two files the models consume directly
 │   ├── tb_amp_dataset.csv            #   Stage 2 — TB-specific fine-tuning + evaluation
 │   └── general_amp_dataset.csv       #   Stage 1 — general AMP pre-training
+├── splits/                           # the exact train/val/test partitions used
+│   ├── tb_train.csv  tb_val.csv  tb_test.csv
+│   └── general_train.csv  general_val.csv  general_test.csv
 └── sources/                          # upstream inputs, grouped by which dataset they build
     ├── tb_specific/                  #   → builds tb_amp_dataset.csv
     │   ├── positives_antitbamp_prod.xlsx
@@ -40,7 +43,8 @@ data_release/
         └── negatives_uniprot_len5_30_apr23.tsv
 ```
 
-To reproduce the models you need `training/` alone.
+To reproduce the models you need `training/` alone; `splits/` pins the exact partitions
+those results were measured on, so evaluation does not depend on reproducing a seed.
 
 `sources/` is included for auditing. On rebuilds, note the asymmetry:
 
@@ -295,6 +299,83 @@ this environment rather than a guarantee.
 
 ---
 
+## `splits/`
+
+The exact train/validation/test partitions behind the reported results, written out so
+evaluation does not depend on regenerating a seed.
+
+| File | Rows | Positive / negative | Share |
+|---|---|---|---|
+| `tb_train.csv` | 264 | 123 / 141 | 60 % |
+| `tb_val.csv` | 88 | 41 / 47 | 20 % |
+| `tb_test.csv` | 88 | 41 / 47 | 20 % |
+| `general_train.csv` | 21,690 | 11,087 / 10,603 | 70 % |
+| `general_val.csv` | 4,649 | 2,376 / 2,273 | 15 % |
+| `general_test.csv` | 4,648 | 2,376 / 2,272 | 15 % |
+
+Columns are `Sequences` and `label` (`1` AMP / `0` non-AMP) in both families; the TB
+files carry the `AMP` column of `tb_amp_dataset.csv` cast to integer. `Peptide ID` is
+omitted — rejoin it from `general_amp_dataset.csv` on `Sequences` if needed.
+
+**Row order is the order the models received**, as `train_test_split` emitted it, not the
+parent file's order.
+
+The TB splits are taken *after* the training-time filter, so they partition the 440
+surviving rows rather than all 704. The general splits partition the full 30,987.
+
+Verified on generation:
+
+| Check | TB | General |
+|---|---|---|
+| Rows across the three files sum to the parent | ✅ 440 | ✅ 30,987 |
+| Pairwise sequence overlap between splits | ✅ 0 | ✅ 0 |
+| Union equals the parent sequence set | ✅ | ✅ |
+| `tb_test.csv` matches `model_scripts/test_seq.txt` and `test_y.txt`, in order | ✅ | — |
+
+### Confirmed against the published training runs
+
+The class counts of these splits match the confusion matrices stored in
+`lstm_transfer.ipynb`'s saved outputs exactly, which identifies them as the partitions the
+reported results were actually measured on:
+
+| Split | Shipped file | Confusion-matrix row sums in the notebook |
+|---|---|---|
+| TB test | 47 negative / 41 positive | `[[42 5], [3 38]]` → 47 / 41 ✅ |
+| TB validation | 47 negative / 41 positive | `[[41 6], [5 36]]` → 47 / 41 ✅ |
+| General validation | 2,273 negative / 2,376 positive | `[[2167 106], [93 2283]]` → 2,273 / 2,376 ✅ |
+
+### Three all-`X` records are dropped at load time
+
+`general_amp_dataset.csv` contains three sequences consisting entirely of `X`
+(`Peptide ID` 10821, 15095, 15098), carried in from the upstream positives. The one-hot
+encoder in `lstm_transfer.ipynb` maps them to all-zero matrices and `collate_and_pack`
+filters them out, since `SequenceDataset` measures length as `len(seq.replace("X", ""))`.
+
+They are present in `splits/` because the splits mirror their parent file exactly, so the
+effective counts at training time are one or two lower than the row counts above:
+
+| File | Rows | Rows reaching the model |
+|---|---|---|
+| `general_train.csv` | 21,690 | 21,688 |
+| `general_val.csv` | 4,649 | 4,649 |
+| `general_test.csv` | 4,648 | **4,647** |
+
+The TB files are unaffected — its training filter already excludes every `X`-bearing
+sequence. The three records are 0.01 % of the general set and are dropped identically on
+every run, so they do not affect the reported metrics; they are noted so the row counts
+reconcile.
+
+### Why these are shipped
+
+`train_test_split`'s shuffling is stable in practice but is not a documented API
+guarantee, so regenerating the splits ties the evaluation to a scikit-learn version.
+These files remove that dependency: the held-out sets are now data rather than a recipe,
+and anyone can score a model against the same 88 TB and 4,648 general sequences without
+running the notebooks. They are byte-reproducible from `training/` plus the filter and
+seed documented above, so they add no new source of truth.
+
+---
+
 ## Reproducibility summary
 
 | | Reproducible from `sources/`? | Notes |
@@ -303,12 +384,12 @@ this environment rather than a guarantee.
 | TB negatives | — | defined by the shipped file; unseeded sampling at build time |
 | General AMP set | ✅ exactly | rebuilds from `sources/general_amp/`, row order included |
 | Training-time filter | ✅ exactly | deterministic, 704 → 440 rows |
-| Train/val/test splits | ✅ seeded | `random_state=42`, regenerated at run time |
+| Train/val/test splits | ✅ **stored** | shipped in `splits/`; no seed replay required |
 
-Splits are produced by `train_test_split(random_state=42)` at run time rather than stored
-as files. They reproduce exactly given a matching scikit-learn version and the shipped CSV
-row order — both of which this package fixes. If you intend to vary library versions,
-materialise the splits to disk once and load those instead.
+The splits are shipped as files in `splits/`, so evaluation is independent of library
+versions. They remain regenerable from `training/` with the filter and
+`train_test_split(random_state=42)` documented above, which is how they were produced and
+verified — but nothing downstream depends on that replay succeeding.
 
 Reference environment for all verification in this README:
 **Python 3.10.16, pandas 2.3.2, scikit-learn 1.7.2** (conda env `tb_amp_env`).
@@ -330,6 +411,11 @@ All of the following were measured against the shipped files, not inferred:
 | Non-standard residues in `tb_amp_dataset.csv` | ✅ none (20 standard + `X`) |
 | `model_scripts/test_y.txt` vs. replayed `y_test` | ✅ identical (88 labels) |
 | `model_scripts/test_seq.txt` vs. replayed `X_test` | ✅ identical (88 records, full length) |
+| `splits/` rows sum to their parent datasets | ✅ 440 and 30,987 |
+| Pairwise sequence overlap between splits | ✅ 0 (both families) |
+| `splits/tb_test.csv` vs. the notebook's exported test set | ✅ identical, in order |
+| `splits/` class counts vs. the notebook's stored confusion matrices | ✅ match (TB 47/41; general 2,273/2,376) |
+| Published `best_model.pt` scores on `splits/` using notebook code | ✅ runs end-to-end from `data_release/` alone |
 
 ---
 
@@ -363,6 +449,12 @@ from the upstream databases directly.
 |---|---|---|
 | `training/tb_amp_dataset.csv` | 18 KB | `cde61eb182d0f4490eae98b7cefa163d` |
 | `training/general_amp_dataset.csv` | 3.3 MB | `5369bc0fe5109b259ed6b1527f77b7b9` |
+| `splits/tb_train.csv` | 7.9 KB | `e6d939e0cb76316206b5253f55209e8e` |
+| `splits/tb_val.csv` | 2.9 KB | `4e4ffb39c843bc5b611412ad782620d1` |
+| `splits/tb_test.csv` | 2.4 KB | `5429c57a3380cc0ea5d628fc7eed3e8d` |
+| `splits/general_train.csv` | 834 KB | `ba34c7cc888f8a67ca25772f01917c10` |
+| `splits/general_val.csv` | 181 KB | `65bb3cc6cbddf597f49f76b1c69466af` |
+| `splits/general_test.csv` | 182 KB | `16e6344ab11da391d304b3604b4345af` |
 | `sources/tb_specific/positives_antitbamp_prod.xlsx` | 73 KB | `a69c034a10024a957178c5a4277665e6` |
 | `sources/tb_specific/positives_antitbpred.csv` | 4.1 KB | `4f5e0af07b1c1cf083177791c94063e0` |
 | `sources/tb_specific/positives_dbaasp_tb.csv` | 7.9 KB | `1fba21bb74f5964e8e886bdf2b0cf864` |
@@ -375,4 +467,6 @@ from the upstream databases directly.
 | `sources/general_amp/negatives_uniprot_len5_30.csv` | 3.4 MB | `aa09cb45e2aa0c2a66b6eed50252c99b` |
 | `sources/general_amp/negatives_uniprot_len5_30_apr23.tsv` | 1.2 MB | `50b652ec98ab4cc3d5074566d43e7136` |
 
-Total: 22 MB. All files are byte-identical copies of their originals in `data/`.
+Total: 24 MB. The `training/` and `sources/` files are byte-identical copies of their
+originals in `data/`; the `splits/` files are generated from `training/` as described
+above.
